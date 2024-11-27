@@ -1,6 +1,7 @@
 package com.example.e_books.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,55 +24,37 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.e_books.R
+import androidx.compose.material.*
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.graphics.Color
+import com.example.e_books.BottomNavigationItem
+import com.example.e_books.Content
 
 @Composable
 fun HomeScreen(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
+    Content(navController = navController, contentToDisplay = { HomeContent() })
+}
+
+@Composable
+fun HomeContent(){
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "Home Page",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
+            fontSize = 32.sp
         )
-        Spacer(modifier = Modifier.height(6.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(),
-            verticalAlignment = Alignment.Bottom,
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Button(onClick = { navController.navigate("home_screen") }) {
-                Image(
-                    painter = painterResource(id = R.drawable.home_icon),
-                    contentDescription = "Home"
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { navController.navigate("books_screen") }) {
-                Image(
-                    painter = painterResource(id = R.drawable.library_icon),
-                    contentDescription = "Books"
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { navController.navigate("saved_screen") }) {
-                Image(
-                    painter = painterResource(id = R.drawable.save_icon),
-                    contentDescription = "Saved"
-                )
-            }
-            Spacer(modifier = Modifier.weight(1f))
-            Button(onClick = { navController.navigate("profile_screen") }) {
-                Image(
-                    painter = painterResource(id = R.drawable.profile_icon),
-                    contentDescription = "Profile"
-                )
-            }
-        }
     }
 }

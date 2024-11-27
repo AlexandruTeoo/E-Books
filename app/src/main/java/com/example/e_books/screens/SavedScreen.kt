@@ -14,9 +14,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.e_books.Content
 
 @Composable
 fun SavedScreen(navController: NavController) {
+    Content(navController, { SavedContent() })
+}
+
+@Composable
+fun SavedContent() {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp),
