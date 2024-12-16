@@ -3,7 +3,11 @@ package com.example.e_books.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -15,23 +19,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.e_books.Content
+import com.example.e_books.getBooks
+
+val savedBooks = getBooks()
 
 @Composable
 fun SavedScreen(navController: NavController) {
-    Content(navController, { SavedContent() })
+    Content(navController, { SavedContent(navController) })
 }
 
 @Composable
-fun SavedContent() {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = "Saved Books Page",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
-        )
+fun SavedContent(navController: NavController) {
+    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        Text(text = "Saved Books", style = MaterialTheme.typography.headlineMedium)
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
+        ) {
+            items(savedBooks) { book ->
+                BookItem(navController = navController, book = book)
+            }
+        }
     }
 }
