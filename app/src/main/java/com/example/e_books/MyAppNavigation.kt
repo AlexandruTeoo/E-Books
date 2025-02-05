@@ -12,6 +12,7 @@ import com.example.e_books.screens.ProfileScreen
 import com.example.e_books.screens.SavedScreen
 import com.example.e_books.screens.SignUpScreen
 import com.example.e_books.screens.sumary
+import com.example.e_books.viewmodel.AuthViewModel
 
 sealed class Screens(val route: String) {
     object Home : Screens("home_screen")
@@ -29,7 +30,7 @@ val books = listOf(
 )
 
 @Composable
-fun MyAppNavigation(){
+fun MyAppNavigation(authViewModel: AuthViewModel){
     val navController = rememberNavController()
 
     NavHost(
@@ -37,10 +38,10 @@ fun MyAppNavigation(){
         startDestination = "login_screen"
     ){
         composable("login_screen"){
-            LogInScreen(navController)
+            LogInScreen(navController, authViewModel)
         }
         composable("signup_screen"){
-            SignUpScreen(navController)
+            SignUpScreen(navController, authViewModel)
         }
         composable("home_screen"){
             HomeScreen(navController)
@@ -52,7 +53,7 @@ fun MyAppNavigation(){
             SavedScreen(navController)
         }
         composable("profile_screen"){
-            ProfileScreen(navController)
+            ProfileScreen(navController, authViewModel)
         }
         composable(Screens.BookDetails.route) { backStackEntry ->
             val bookId = backStackEntry.arguments?.getString("bookId")?.toInt()
